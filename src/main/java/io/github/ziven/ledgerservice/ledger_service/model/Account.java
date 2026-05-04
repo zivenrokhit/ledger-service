@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "accounts")
 @Data
 @NoArgsConstructor
-class Account {
+public class Account {
 
     @Id
     @GeneratedValue
