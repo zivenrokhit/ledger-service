@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Lob;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -26,7 +25,6 @@ public class Transaction {
     @Column(name = "reference_id", unique = true, nullable = false, length = 255)
     private String referenceId;
 
-    @Lob
     @Column(name = "description")
     private String description;
 
