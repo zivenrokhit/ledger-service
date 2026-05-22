@@ -1,6 +1,10 @@
 package io.github.ziven.ledgerservice.ledger_service.service;
 
+import java.util.UUID;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import io.github.ziven.ledgerservice.ledger_service.dto.request.AccountCreateRequestDTO;
 import io.github.ziven.ledgerservice.ledger_service.dto.request.AccountCreateResponseDTO;
@@ -23,12 +27,23 @@ public class AccountService {
 
         Account saved = accountRepository.save(account);
 
+        return toResponse(saved);
+    }
+
+    public AccountCreateResponseDTO getAccountById(UUID id) {
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account not found"));
+
+        return toResponse(account);
+    }
+
+    private AccountCreateResponseDTO toResponse(Account account) {
         return new AccountCreateResponseDTO(
-                saved.getId(),
-                saved.getName(),
-                saved.getType(),
-                saved.getCurrency(),
-                saved.getBalance(),
-                saved.getCreatedAt());
+                account.getId(),
+                account.getName(),
+                account.getType(),
+                account.getCurrency(),
+                account.getBalance(),
+                account.getCreatedAt());
     }
 }
